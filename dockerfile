@@ -2,7 +2,7 @@
 FROM ubuntu:14.04
 
 
-MAINTAINER ian.miell@gmail.com
+MAINTAINER aniketdhanai@gmail.com
 
 
 RUN echo "Hello Aniket Here!!" > /tmp/hello_world.txt
