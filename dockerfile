@@ -1,10 +1,7 @@
-
-FROM ubuntu:14.04
-
+FROM httpd:2.4
 
 MAINTAINER aniketdhanai@gmail.com
 
+COPY index.html /usr/local/apache2/htdocs/
 
-RUN echo "Hello Aniket Here!!" > /tmp/hello_world.txt
-
-CMD ["cat", "/tmp/hello_aniket.txt"]
+EXPOSE 80
