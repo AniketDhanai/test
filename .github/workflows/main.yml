@@ -1,25 +1,41 @@
-name: Docker CI Learning - KUCL 
+name: ci
+
 on:
   push:
+
+env:
+  TEST_TAG: aniketdhanai/devops: test
+  LATEST_TAG: aniketdhanai/devops:latest
+
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Set up QEMU test
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
+      
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
+      
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+      
+      - name: Build and export to Docker
         uses: docker/build-push-action@v6
         with:
+          load: true
+          tags: ${{ env.TEST_TAG }}
+      
+      - name: Test
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/devops:actions
+          tags: ${{ env.LATEST_TAG }}
