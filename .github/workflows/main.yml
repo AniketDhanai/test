@@ -32,4 +32,4 @@ jobs:
       labels: devops
     steps:
       - name: connect and pull
-        run: ssh ${{ vars.S_USER }}@${{ vars.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/devops:newactions"
+        run: ssh ${{ vars.S_USER }}@${{ vars.D_HOST }} "docker run -d --name alpha ${{ secrets.DOCKERHUB_USERNAME}}/devops:newactions"
