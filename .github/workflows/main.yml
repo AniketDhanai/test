@@ -17,14 +17,14 @@ jobs:
         name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ var.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ var.DOCKERHUB_USERNAME}}/devops:newactions
+          tags: ${{ vars.DOCKERHUB_USERNAME}}/devops:newactions
   deploy:
     needs: docker_1
     name: deploy image
@@ -32,4 +32,4 @@ jobs:
       labels: devops
     steps:
       - name: connect and pull
-        run: ssh ${{ var.S_USER }}@${{ var.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/devops:newactions"
+        run: ssh ${{ vars.S_USER }}@${{ vars.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/devops:newactions"
