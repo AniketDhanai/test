@@ -12,4 +12,4 @@ jobs:
       - name: decode
         run: echo "${{secrets.MYKUBECONFIG}}" | base64  --decode > ${HOME}/.kube/config
       - name: create deployment
-        run: ssh ${{ vars.S_USER }}@${{ vars.D_HOST }} "kubectl --kubeconfig= ${HOME}/.kube/config create deployment githubaction --image=docker.io/httpd”
+        run: ssh ${{ vars.S_USER }}@${{ vars.D_HOST }} "kubectl --kubeconfig= ${HOME}/.kube/config create deployment githubaction --image=docker.io/httpd"
