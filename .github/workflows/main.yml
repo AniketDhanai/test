@@ -32,7 +32,7 @@ jobs:
       labels: devops
     steps:
       - name: create directory
-        run: mkdir ${HOME}/.kube
+        run: mkdir -p ${HOME}/.kube
       - name: decode
         run: echo ${{secrets.MYKUBECONFIG}} | base64  --decode > ${HOME}./kube/config
       - name: create deployment
